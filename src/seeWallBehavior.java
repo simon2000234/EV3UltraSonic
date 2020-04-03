@@ -1,5 +1,6 @@
 import java.util.Random;
 
+import lejos.hardware.Audio;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.navigation.MovePilot;
 import lejos.robotics.subsumption.Behavior;
@@ -10,11 +11,14 @@ public class seeWallBehavior implements Behavior {
 	boolean supressed;
 	MovePilot pilot;
 	Random rnd;
+	Audio audio;
 
-	public seeWallBehavior(EV3UltrasonicSensor sensor, MovePilot pilot) {
+	public seeWallBehavior(EV3UltrasonicSensor sensor, MovePilot pilot, Audio audio) {
 		this.sensor = sensor;
 		this.pilot = pilot;
 		rnd = new Random();
+		this.audio = audio;
+		this.audio.setVolume(100);
 	}
 	
 	@Override
@@ -53,6 +57,7 @@ public class seeWallBehavior implements Behavior {
 	}
 	
 	private void goRight() {
+		audio.systemSound(1);
 		pilot.stop();
 		pilot.travel(-5);
 		pilot.rotate(-40);
@@ -60,6 +65,7 @@ public class seeWallBehavior implements Behavior {
 	}
 
 	private void goLeft() {
+		audio.systemSound(1);
 		pilot.stop();
 		pilot.travel(-5);
 		pilot.rotate(40);

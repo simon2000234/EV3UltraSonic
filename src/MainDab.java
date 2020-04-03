@@ -21,11 +21,10 @@ public class MainDab {
 		EV3UltrasonicSensor sensor = new EV3UltrasonicSensor(brick.getPort("S1"));
 		Behavior bm = new moveBehavior(pilot);
 		Behavior bc = new closeBehavior(arby);
-		Behavior bs = new seeWallBehavior(sensor, pilot);
+		Behavior bs = new seeWallBehavior(sensor, pilot, brick.getAudio());
 		Behavior [] bArray = {bm, bs, bc};
 		arby = new Arbitrator(bArray);
 		arby.go();
-		
 		// TODO Auto-generated method stub
 		
 		// Behavior b0  = new shutUp();
