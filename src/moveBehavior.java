@@ -5,6 +5,8 @@ public class moveBehavior implements Behavior {
 	
 	private boolean supressed;
 	private MovePilot pilot;
+	private int fastSpeed = 20;
+	private int normalSpeed = 5;
 
 	public moveBehavior(MovePilot pilot)
 	{
@@ -23,12 +25,15 @@ public class moveBehavior implements Behavior {
 		while(!supressed)
 		{
 		}
-		pilot.stop();
+		pilot.setLinearAcceleration(fastSpeed);
+		pilot.setAngularAcceleration(fastSpeed);
+		pilot.stop();;
+		pilot.setLinearAcceleration(normalSpeed);
+		pilot.setAngularAcceleration(normalSpeed);
 	}
 
 	@Override
 	public void suppress() {
-		System.out.println("move is supressed");
 		supressed = true;
 		
 	}

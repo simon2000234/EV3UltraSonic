@@ -1,6 +1,8 @@
 import lejos.hardware.ev3.EV3;
 import lejos.hardware.ev3.LocalEV3;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
+import lejos.hardware.port.SensorPort;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.chassis.Chassis;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
@@ -16,9 +18,11 @@ public class MainDab {
 	public static void main(String[] args) {
 		EV3 brick = LocalEV3.get();
 		setupPilot(brick);
-		Behavior b1 = new moveBehavior(pilot);
-		Behavior b2 = new closeBehavior(arby);
-		Behavior [] bArray = {b1,b2};
+		EV3UltrasonicSensor sensor = new EV3UltrasonicSensor(brick.getPort("S1"));
+		Behavior bm = new moveBehavior(pilot);
+		Behavior bc = new closeBehavior(arby);
+		Behavior bs = new seeWallBehavior(sensor, pilot);
+		Behavior [] bArray = {bm, bs, bc};
 		arby = new Arbitrator(bArray);
 		arby.go();
 		
@@ -39,8 +43,10 @@ public class MainDab {
 
 		Chassis chassis = new WheeledChassis(new Wheel[] { wheel1, wheel2 }, WheeledChassis.TYPE_DIFFERENTIAL);
 		pilot = new MovePilot(chassis);
+		double speed = 5;
+		pilot.setLinearAcceleration(speed);
+		pilot.setAngularAcceleration(speed);
 	}
-	
 	
 
 }

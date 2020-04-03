@@ -5,16 +5,23 @@ import lejos.robotics.subsumption.Behavior;
 public class closeBehavior implements Behavior{
 	private boolean supressed;
 	private Arbitrator arby;
+	boolean shouldTakeOver;
+
 
 	public closeBehavior(Arbitrator arby)
 	{
 		this.arby = arby;
+		shouldTakeOver = false;
 	}
 	@Override
 	public boolean takeControl() {
-		if(Button.ESCAPE.isDown())
+		if (Button.ESCAPE.isDown())
 		{
-			System.out.println("escpe is down");
+			shouldTakeOver = true;
+		}
+		if(shouldTakeOver)
+		{
+			System.out.println("take over");
 			return true;
 		}
 		else
@@ -27,9 +34,9 @@ public class closeBehavior implements Behavior{
 	public void action() {
 		supressed = false;
 		System.out.println("close action");
-		while(!supressed)
+		if(!supressed)
 		{
-			arby.stop();
+			System.exit(0);
 		}
 		
 	}
@@ -37,6 +44,7 @@ public class closeBehavior implements Behavior{
 	@Override
 	public void suppress() {
 		supressed = true;
+		shouldTakeOver = false;
 		
 	}
 
