@@ -4,13 +4,11 @@ import lejos.robotics.subsumption.Behavior;
 
 public class closeBehavior implements Behavior{
 	private boolean supressed;
-	private Arbitrator arby;
 	boolean shouldTakeOver;
 
 
 	public closeBehavior(Arbitrator arby)
 	{
-		this.arby = arby;
 		shouldTakeOver = false;
 	}
 	@Override
@@ -21,7 +19,6 @@ public class closeBehavior implements Behavior{
 		}
 		if(shouldTakeOver)
 		{
-			System.out.println("take over");
 			return true;
 		}
 		else

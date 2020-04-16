@@ -25,15 +25,6 @@ public class MainDab {
 		Behavior [] bArray = {bm, bs, bc};
 		arby = new Arbitrator(bArray);
 		arby.go();
-		// TODO Auto-generated method stub
-		
-		// Behavior b0  = new shutUp();
-		// Behavior b1 = new DriveForward();
-	    // Behavior b3 = new HitWall(SensorPort.S2);
-	    //  Behavior [] bArray = {b1, b2, b3};
-	    //  Arbitrator arby = new Arbitrator(bArray);
-	    //  arby.start();
-		
 	}
 	
 	private static void setupPilot(EV3 brick) {
